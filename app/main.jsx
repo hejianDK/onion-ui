@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Root from './components/Root'
 
 ReactDOM.render(
-    <p>Hello World</p>,
+    <Root />,
     document.body.appendChild(document.createElement('div'))
 );
