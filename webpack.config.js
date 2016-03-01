@@ -3,6 +3,7 @@ var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
+    name: 'client',
     devServer: {
         historyApiFallback: true,
         hot: true,
@@ -25,13 +26,18 @@ module.exports = {
         extensions: ['', '.js', '.jsx']
     },
     module: {
-        loaders:[
-            { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
-            { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
+        loaders: [
+            {test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader'},
+            {
+                test: /\.js[x]?$/,
+                include: path.resolve(__dirname, 'app'),
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            }
         ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new OpenBrowserPlugin({ url: 'http://localhost:9999' })
+        new OpenBrowserPlugin({url: 'http://localhost:9999'})
     ]
 };
