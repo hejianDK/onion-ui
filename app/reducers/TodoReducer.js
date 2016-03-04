@@ -1,4 +1,5 @@
 import TodoConstants from '../constants/TodoConstants';
+import _ from 'lodash';
 
 function flatTodos(todos) {
     let flattenedTodos = {};
@@ -11,6 +12,21 @@ function flatTodos(todos) {
 export default function todoReducer (state = {}, action) {
     switch (action.type) {
         case TodoConstants.GET_TODOS_REQUEST:
+        case TodoConstants.GET_TODOS_SUCCESS:
+        case TodoConstants.GET_TODOS_FAILURE:
+            return getTodosReducer(state, action);
+        case TodoConstants.UPDATE_TODO_REQUEST:
+        case TodoConstants.UPDATE_TODO_SUCCESS:
+        case TodoConstants.UPDATE_TODO_FAILURE:
+            return Object.assign({}, state, {
+                [action.id]: updateTodoReducer(state[action.id], action)
+            })
+    }
+}
+
+function getTodosReducer (state = {}, action) {
+    switch (action.type) {
+        case TodoConstants.GET_TODOS_REQUEST:
             return Object.assign({}, {
                 isFetching: true,
                 todos: state.todos || {}
@@ -21,7 +37,25 @@ export default function todoReducer (state = {}, action) {
             });
         case TodoConstants.GET_TODOS_FAILURE:
             return Object.assign({}, {
-                todos: flatTodos(action.todos)
+                fetchingError: flatTodos(action.error)
             });
+    }
+}
+
+function updateTodoReducer(state = {}, action) {
+    switch (action.type) {
+        case TodoConstants.UPDATE_TODO_REQUEST:
+            return Object.assign({}, action.todo, {
+                isUpdating: true
+            });
+        case TodoConstants.UPDATE_TODO_SUCCESS:
+            return Object.assign({}, action.todo, {
+                isUpdating: false
+            });
+        case TodoConstants.UPDATE_TODO_FAILURE:
+            return Object.assign({}, state, {
+                isUpdating: false,
+                updatingError: action.error
+            })
     }
 }

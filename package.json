@@ -4,11 +4,11 @@
   "version": "0.0.1",
   "main": "app/main.jsx",
   "scripts": {
-    "lint": "eslint 'app/**/*.@(js|jsx)'",
+    "lint": "eslint \"app/**/*.@(js|jsx)\"",
     "test": "mocha --compilers js:babel-core/register --require ./test/setup.js",
     "build": "webpack",
-    "start": "webpack-dev-server --devtool eval --progress --hot --colors --content-base app",
-    "rest": "node server.js"
+    "start": "webpack-dev-server --devtool eval --progress --hot --inline --colors --content-base app",
+    "server": "node server.js"
   },
   "dependencies": {
     "react": "~0.14.6",
@@ -19,7 +19,12 @@
     "redux-thunk": "^1.0.3",
     "express": "~4.13.4",
     "cors": "*",
-    "body-parser": "*"
+    "body-parser": "*",
+    "lodash": "~4.6.1",
+    "es6-promise": "~3.1.2",
+    "isomorphic-fetch": "~2.2.1",
+    "webpack-dev-middleware": "~1.5.1",
+    "webpack-hot-middleware": "~2.9.1"
   },
   "devDependencies": {
     "webpack": "*",
@@ -28,9 +33,6 @@
     "copy-webpack-plugin": "~0.3.3",
     "css-loader": "~0.23.0",
     "style-loader": "~0.13.0",
-
-    "es6-promise": "~3.1.2",
-    "isomorphic-fetch": "~2.2.1",
 
     "babel-core": "~6.2.1",
     "babel-eslint": "~4.1.6",

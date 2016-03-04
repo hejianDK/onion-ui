@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
+var _ = require('lodash');
 
 var todos = [
     {
@@ -22,54 +24,43 @@ var todos = [
 ];
 
 var app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.send('hi onion');
 });
+
+
 app.get('/todos', function (req, res) {
     setTimeout(function () {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.send(todos);
     }, 1500);
 
 });
 
+app.put('/todos/:id', function (req, res) {
+    var id = req.params.id;
+    var todo = req.body;
+    console.log(req.body);
+    setTimeout(function() {
+        var updatedTodo = updateTodo(id, todo);
+        res.send(updatedTodo);
+    }, 1500);
+});
 
+function updateTodo(id, todo) {
+    var index = _.findIndex(todos, function(todo) {
+        return todo.id == id;
+    });
+    todos[index] = Object.assign({}, todos[index], {
+        isDone: todo.isDone,
+        text: todo.text
+    });
 
-//app.post('/counters/', (req, res, next) => {
-//    var newId = counters.reduce((maxId, counter) => Math.max(counter.id, maxId), -1) + 1;
-//    var counterToAdd = Object.assign({}, {
-//        id: newId,
-//        name: "counter"+newId,
-//        value: 0,
-//        count: 0
-//    });
-//
-//    setTimeout(() => {
-//        let rand = Math.random() - 0.5;
-//        if( rand > 0 ) {
-//            counters.push(counterToAdd);
-//            res.header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Headers", "X-Requested-With")
-//                .status(201)
-//                .send(counterToAdd);
-//        } else {
-//            res.header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Headers", "X-Requested-With")
-//                .status(500)
-//                .send({
-//                    status: 500,
-//                    message: 'random server error ' + rand
-//                })
-//        }
-//
-//    }, 1000);
-//});
-
-
+    return todos[index];
+}
 
 app.listen(3333, function () {
     console.log('Listening port 3333');
