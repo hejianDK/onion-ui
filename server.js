@@ -34,20 +34,26 @@ app.get('/', function (req, res) {
 
 
 app.get('/todos', function (req, res) {
-    setTimeout(function () {
-        res.send(todos);
-    }, 1500);
-
+    res.send(todos);
 });
 
 app.put('/todos/:id', function (req, res) {
+    console.log(req.body);
     var id = req.params.id;
     var todo = req.body;
-    console.log(req.body);
-    setTimeout(function() {
-        var updatedTodo = updateTodo(id, todo);
-        res.send(updatedTodo);
-    }, 1500);
+    var updatedTodo = updateTodo(id, todo);
+    res.send(updatedTodo);
+});
+
+app.post('/todos/', function (req, res) {
+    var id = _.maxBy(todos, 'id').id + 1;
+    var body = req.body;
+    var newTodo = Object.assign({}, {id: id}, {
+        text: body.text,
+        isDone: false
+    });
+    todos.push(newTodo);
+    res.send(newTodo);
 });
 
 function updateTodo(id, todo) {

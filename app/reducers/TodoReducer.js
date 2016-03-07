@@ -19,8 +19,28 @@ export default function todoReducer (state = {}, action) {
         case TodoConstants.UPDATE_TODO_SUCCESS:
         case TodoConstants.UPDATE_TODO_FAILURE:
             return Object.assign({}, state, {
-                [action.id]: updateTodoReducer(state[action.id], action)
-            })
+                todos: Object.assign({}, state.todos, {
+                    [action.todo.id]: updateTodoReducer(state[action.todo.id], action)
+                })
+            });
+        case TodoConstants.ADD_TODO_REQUEST:
+            return Object.assign({}, state, {
+                isAdding: true
+            });
+        case TodoConstants.ADD_TODO_SUCCESS:
+            return Object.assign({}, state, {
+                todos: Object.assign({
+                    isAdding: false
+                }, state.todos, {
+                    [action.todo.id]: action.todo
+                })
+            });
+        case TodoConstants.ADD_TODO_FAILURE:
+            return Object.assign({
+                isAdding: false
+            }, state, {
+                error: action.error
+            });
     }
 }
 

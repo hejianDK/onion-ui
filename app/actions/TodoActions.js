@@ -10,10 +10,10 @@ export function addTodoRequest(text) {
     }
 }
 
-export function addTodoSuccess(todos) {
+export function addTodoSuccess(todo) {
     return {
         type: TodoConstants.ADD_TODO_SUCCESS,
-        todos
+        todo
     }
 }
 
@@ -111,5 +111,21 @@ export function updateTodo(todo) {
         })
             .then(res => res.json())
             .then(json => dispatch(updateTodoSuccess(json)));
+    }
+}
+
+export function addTodo(text) {
+    return dispatch => {
+        dispatch(addTodoRequest(text));
+        return fetch(url + '/todos/', {
+            method: 'post',
+            body: JSON.stringify({text}),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(json => dispatch(addTodoSuccess(json)));
     }
 }
