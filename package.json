@@ -5,7 +5,8 @@
   "main": "app/main.jsx",
   "scripts": {
     "lint": "eslint \"app/**/*.@(js|jsx)\"",
-    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js",
+    "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test:watch": "npm test -- --watch --require ./test/setup.js",
     "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --hot --inline --colors --content-base app",
     "server": "node server.js"
@@ -48,6 +49,8 @@
     "jsdom": "^7.2.2",
     "jsx-test": "^0.8.2",
     "react-addons-test-utils": "^0.14.6",
+    "nock": "7.4.0",
+    "redux-mock-store": "^0.0.6",
 
     "eslint": "~1.10.1",
     "eslint-config-airbnb": "~1.0.0",
