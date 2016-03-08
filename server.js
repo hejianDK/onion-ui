@@ -45,7 +45,8 @@ app.put('/todos/:id', function (req, res) {
 });
 
 app.post('/todos/', function (req, res) {
-    var id = _.maxBy(todos, 'id').id + 1;
+    var todoWithMaxId = _.maxBy(todos, 'id');
+    var id = todoWithMaxId === undefined ? 0 : todoWithMaxId.id + 1;
     var body = req.body;
     var newTodo = Object.assign({}, {id: id}, {
         text: body.text,
@@ -62,6 +63,7 @@ app.delete('/todos/:id', function(req, res) {
     });
     var todoToBeDeleted = todos[index];
     todos.splice(index, 1);
+    console.log(todos);
     res.send(todoToBeDeleted);
 });
 
