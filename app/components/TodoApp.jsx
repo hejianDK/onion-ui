@@ -7,6 +7,7 @@ import {fetchTodos} from '../actions/TodoActions';
 class TodoApp extends React.Component {
     constructor(props) {
         super(props);
+        this.refresh = this.refresh.bind(this);
     }
 
     componentDidMount() {
@@ -14,15 +15,16 @@ class TodoApp extends React.Component {
         dispatch(fetchTodos());
     }
 
-    //componentWillReceiveProps(nextProps) {
-    //    const {dispatch, todos} = this.props;
-    //    dispatch(fetchTodos());
-    //}
+    refresh() {
+        const {dispatch} = this.props;
+        dispatch(fetchTodos());
+    }
 
     render() {
         return <div>
-            <h1>Todo List</h1>
-            <TodoList todos={this.props.todos} isFetching={this.props.isFetching} />
+            <h1 style={{rightMargin: '10px'}}>Todo List</h1>
+            <span onClick={this.refresh}>refresh</span>
+            <TodoList todos={this.props.todos} isFetching={this.props.isFetching}/>
             <AddTodo />
         </div>
     }
