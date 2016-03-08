@@ -129,3 +129,14 @@ export function addTodo(text) {
             .then(json => dispatch(addTodoSuccess(json)));
     }
 }
+
+export function removeTodo(id) {
+    return dispatch => {
+        dispatch(removeTodoRequest(id));
+        return fetch(url + '/todos/' + id, {
+            method: 'delete'
+        })
+            .then(res => res.json())
+            .then(json => dispatch(removeTodoSuccess(json)));
+    }
+}

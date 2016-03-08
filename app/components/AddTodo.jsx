@@ -13,6 +13,7 @@ export default class AddTodo extends React.Component {
         let text = event.target.value;
         if(event.keyCode==13) {
             dispatch(addTodo(text));
+            event.target.value = '';
         }
     }
 
