@@ -38,7 +38,6 @@ app.get('/todos', function (req, res) {
 });
 
 app.put('/todos/:id', function (req, res) {
-    console.log(req.body);
     var id = req.params.id;
     var todo = req.body;
     var updatedTodo = updateTodo(id, todo);
@@ -54,6 +53,16 @@ app.post('/todos/', function (req, res) {
     });
     todos.push(newTodo);
     res.send(newTodo);
+});
+
+app.delete('/todos/:id', function(req, res) {
+    var id = req.params.id;
+    var index = _.findIndex(todos, function(todo) {
+        return todo.id == id;
+    });
+    var todoToBeDeleted = todos[index];
+    todos.splice(index, 1);
+    res.send(todoToBeDeleted);
 });
 
 function updateTodo(id, todo) {
