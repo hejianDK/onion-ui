@@ -2,9 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem';
 
 
-export default function TodoList() {
-  const todos = this.props.todos || {};
-  const isFetching = this.props.isFetching;
+export default function TodoList({ todos = {}, isFetching }) {
   return (<div>
     <p hidden={!isFetching}>Fetching todos</p>
     <ul>
