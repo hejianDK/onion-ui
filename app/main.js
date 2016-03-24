@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router';
-import CatalogPage from './pages/CatalogPage';
-import PublishPage from './pages/PublishPage';
-import AdminPage from './pages/AdminPage';
-import HelpPage from './pages/HelpPage';
-import NotFoundPage from './pages/NotFoundPage';
-import Nav from './components/Nav';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
+import {Router, browserHistory} from "react-router";
+import CatalogPage from "./pages/CatalogPage";
+import PublishPage from "./pages/PublishPage";
+import AdminPage from "./pages/AdminPage";
+import HelpPage from "./pages/HelpPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Nav from "./components/Nav";
+import configureStore from "./store/configureStore";
 
 class App extends React.Component {
   render() {
@@ -35,7 +37,11 @@ var routes = [
   }
 ];
 
+const store = configureStore();
+
 ReactDOM.render(
-  <Router history={ browserHistory } routes={ routes }/>,
+  <Provider store={store}>
+    <Router history={ browserHistory } routes={ routes }/>
+  </Provider>,
   document.body.appendChild(document.createElement('div'))
 );
