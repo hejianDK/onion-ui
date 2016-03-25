@@ -1,13 +1,23 @@
 import React from 'react';
-import publishers from '../mockdata/publisher';
-import users from '../mockdata/publisher';
 import Table from '../components/Table';
+import { connect } from 'react-redux';
+import {getPublishers} from "../actions/publisherActions";
 
-export const adminHead = ['Name', 'Contact DL', 'Contact #'];
-export const adminBodyKeys = ['name', 'email', 'phone'];
+export const adminHead = ['Publisher Name', 'Contact Name', 'Prefix',
+  'Contact DL', 'Other email', 'Contact #'];
+export const adminBodyKeys = ['displayName', 'contactName', 'prefix',
+  'distributionEmail', 'contactEmail', 'contactPhone'];
 
 export default class AdminPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    const {dispatch} = this.props;
+    dispatch(getPublishers());
+  }
   render() {
+    const {publishers} = this.props;
     return (
       <div className="container-fluid ">
         <div className='table-responsive'>
@@ -17,7 +27,7 @@ export default class AdminPage extends React.Component {
               <button className="btn btn-default btn-xs">Add</button>
             </small>
           </h3>
-          <Table id='publisherTable' head={adminHead} bodyKeys={adminBodyKeys} body={publishers} />
+          <Table id='userTable' head={adminHead} bodyKeys={adminBodyKeys} body={publishers.data} />
         </div>
         <div className='table-responsive'>
           <h3>
@@ -26,9 +36,15 @@ export default class AdminPage extends React.Component {
               <button className="btn btn-default btn-xs">Add</button>
             </small>
           </h3>
-          <Table id='userTable' head={adminHead} bodyKeys={adminBodyKeys} body={users} />
+          <Table id='userTable' head={adminHead} bodyKeys={adminBodyKeys} body={publishers.data} />
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(AdminPage);
