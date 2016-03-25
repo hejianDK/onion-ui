@@ -10,7 +10,7 @@ export default function publisherReducer(state, action) {
     case GET_PUBLISHERS_REQUEST:
       return Object.assign({}, state, new SyncObject(SyncMode.READING, state.data));
     case GET_PUBLISHERS_SUCCESS:
-      return Object.assign({}, state, new SyncObject(SyncMode.READING, action.data));
+      return Object.assign({}, state, new SyncObject(SyncMode.NONE, action.data));
     case GET_PUBLISHERS_FAILURE:
       return Object.assign({}, state, new SyncObject(SyncMode.NONE, state.data, error));
     default:
