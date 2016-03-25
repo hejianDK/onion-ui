@@ -4,7 +4,7 @@ import {IndexLink, Link} from 'react-router';
 import { connect } from 'react-redux';
 import { userProfile } from '../actions/userProfileActions';
 
-const ACTIVE = {color: 'white', 'backgroundColor': 'grey'};
+const ACTIVE = {color: 'white', 'backgroundColor': '#666699'};
 
 class Nav extends React.Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class Nav extends React.Component {
   render() {
     const {username} = this.props;
     const activeStyle = this.state.activeStyle;
-    console.log('jaja');
 
     return (
       <nav className='navbar navbar-default'>

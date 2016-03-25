@@ -18,7 +18,7 @@ export default class PublishPage extends React.Component {
               <button className="btn btn-default btn-xs">Add</button>
             </small>
           </h3>
-          <Table head={connectionHead} bodyKeys={connectionBodyKeys} body={connections} />
+          <Table id="connectionTable" head={connectionHead} bodyKeys={connectionBodyKeys} body={connections} />
         </div>
         <div className='table-responsive'>
           <h3>
