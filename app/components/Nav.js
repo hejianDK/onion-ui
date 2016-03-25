@@ -24,7 +24,6 @@ class Nav extends React.Component {
   render() {
     const {username} = this.props;
     const activeStyle = this.state.activeStyle;
-    console.log('jaja');
 
     return (
       <nav className='navbar navbar-default'>
