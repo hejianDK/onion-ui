@@ -1,6 +1,5 @@
-var webpack = require('webpack');
-var path = require('path');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   name: 'client',
@@ -12,11 +11,11 @@ module.exports = {
     contentBase: './app',
     port: 9999
   },
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:9999',
-    path.resolve(__dirname, 'app/main.jsx')
-  ],
+  entry: {
+    app: path.resolve(__dirname, 'app/main.js'),
+    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'redux-logger', 'redux-thunk',
+      'react-router', 'isomorphic-fetch', 'es6-promise', 'lodash']
+  },
   output: {
     path: __dirname + '/build',
     publicPath: '/',
@@ -35,11 +34,21 @@ module.exports = {
         include: path.resolve(__dirname, 'app'),
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      { 
+        test: /\.(png|jpg|gif)$/, 
+        loader: 'url-loader'
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:9999' })
+    new webpack.DefinePlugin({
+      'NODE_ENV': `${process.env.NODE_ENV || 'local'}`
+    }),
+    new webpack.optimize.CommonsChunkPlugin(
+      'vendor', 'vendor.js'
+    )
   ]
 };
+

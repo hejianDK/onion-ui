@@ -1,4 +1,6 @@
-node_modules
+/app/dist
+/app.zip
+/app/mockdata
+/node_modules
+/build
 .idea
-build/
-npm-debug.log

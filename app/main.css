@@ -1,0 +1,12 @@
+.brand {
+    position: relative;
+    top: -8px;
+}
+
+.toaster {
+    position: fixed;
+    width: 300px;
+    left: 40%;
+    right: 40%;
+    z-index: 5;
+}
