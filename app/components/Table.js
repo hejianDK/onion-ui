@@ -16,7 +16,7 @@ const TableHead = (props) => {
     <tr>
       {
         props.head.map((h, idx) => {
-          return <td key={idx}>{ h }</td>
+          return <th key={idx}>{ h }</th>
         })
       }
     </tr>
