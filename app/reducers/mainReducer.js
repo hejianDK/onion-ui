@@ -2,7 +2,10 @@ import {USER_PROFILE} from '../constants/Constants';
 import {
   GET_PUBLISHERS_FAILURE,
   GET_PUBLISHERS_REQUEST,
-  GET_PUBLISHERS_SUCCESS
+  GET_PUBLISHERS_SUCCESS,
+  ADD_PUBLISHER_REQUEST,
+  ADD_PUBLISHER_SUCCESS,
+  ADD_PUBLISHER_FAILURE
 } from '../constants/Constants';
 import publisherReducer from './publisherReducer';
 import {SyncObject, SyncMode} from "./SyncObject";
@@ -20,6 +23,9 @@ export default function mainReducer(state = defaultState, action) {
     case GET_PUBLISHERS_REQUEST:
     case GET_PUBLISHERS_SUCCESS:
     case GET_PUBLISHERS_FAILURE:
+    case ADD_PUBLISHER_REQUEST:
+    case ADD_PUBLISHER_SUCCESS:
+    case ADD_PUBLISHER_FAILURE:
       return Object.assign({}, {
         publishers: publisherReducer(state.publishers, action)
       });
