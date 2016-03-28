@@ -31,6 +31,7 @@ export default class AdminPage extends React.Component {
 
   render() {
     const {publishers} = this.props;
+    console.log(publishers.data);
     return (
       <div className='container-fluid '>
         <div className='table-responsive'>
@@ -46,9 +47,10 @@ export default class AdminPage extends React.Component {
               }
             </small>
           </h3>
+          { publishers.syncMode === SyncMode.READING ? <h4>Loading...</h4> : null }
           {
-            publishers.syncMode === SyncMode.READING
-              ? 'Loading...'
+            publishers.data.length === 0
+              ? null
               : <Table id='userTable' head={adminHead}
                        bodyKeys={adminBodyKeys} body={publishers.data}/>
           }
