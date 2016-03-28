@@ -26,7 +26,7 @@ export default function mainReducer(state = defaultState, action) {
     case ADD_PUBLISHER_REQUEST:
     case ADD_PUBLISHER_SUCCESS:
     case ADD_PUBLISHER_FAILURE:
-      return Object.assign({}, {
+      return Object.assign({}, state, {
         publishers: publisherReducer(state.publishers, action)
       });
     default:

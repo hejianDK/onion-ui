@@ -31,7 +31,6 @@ export default class AdminPage extends React.Component {
 
   render() {
     const {publishers} = this.props;
-    console.log(publishers.data);
     return (
       <div className='container-fluid '>
         <div className='table-responsive'>
