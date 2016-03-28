@@ -3,6 +3,7 @@ import Table from "../components/Table";
 import {connect} from "react-redux";
 import {getPublishers} from "../actions/publisherActions";
 import {SyncMode} from "../reducers/SyncObject";
+import PublisherForm from "../components/PublisherForm";
 
 export const adminHead = ['Publisher Name', 'Contact Name', 'Prefix',
   'Contact DL', 'Other email', 'Contact #'];
@@ -12,6 +13,15 @@ export const adminBodyKeys = ['displayName', 'contactName', 'prefix',
 export default class AdminPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {pubFormDismiss: true};
+  }
+
+  showPubForm() {
+    this.setState({pubFormDismiss: false});
+  }
+
+  dismissPubForm() {
+    this.setState({pubFormDismiss: true});
   }
 
   componentDidMount() {
@@ -27,7 +37,13 @@ export default class AdminPage extends React.Component {
           <h3>
             Publishers
             <small className='btn-group'>
-              <button className='btn btn-default btn-xs'>Add</button>
+              <button className='btn btn-default btn-xs' onClick={this.showPubForm.bind(this)}>
+                Add
+              </button>
+              {
+                publishers.syncMode === SyncMode.WRITING
+                  ? 'adding...' : null
+              }
             </small>
           </h3>
           {
@@ -37,6 +53,10 @@ export default class AdminPage extends React.Component {
                        bodyKeys={adminBodyKeys} body={publishers.data}/>
           }
         </div>
+        {
+          this.state.pubFormDismiss ? null :
+            <PublisherForm panelHeading='Publisher Form' dismiss={this.dismissPubForm.bind(this)}/>
+        }
         <div className='table-responsive'>
           <h3>
             Users
