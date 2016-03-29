@@ -22,7 +22,6 @@
     "isomorphic-fetch": "^2.2.1",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
-    "cors": "^2.7.1",
     "body-parser": "^1.15.0"
   },
   "devDependencies": {

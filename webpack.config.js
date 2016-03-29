@@ -10,7 +10,13 @@ module.exports = {
     inline: true,
     progress: true,
     contentBase: './app',
-    port: 8080
+    port: 8080,
+    proxy: {
+      '/api*': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    }
   },
   entry: {
     app: path.resolve(__dirname, 'app/main.js'),
@@ -44,9 +50,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'NODE_ENV': `${process.env.NODE_ENV || 'local'}`
-    }),
     new webpack.optimize.CommonsChunkPlugin(
       'vendor', 'vendor.js'
     ),
