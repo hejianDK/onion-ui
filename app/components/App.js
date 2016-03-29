@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Toaster from './Toaster';
-import PublisherForm from './PublisherForm';
 import Nav from './Nav';
+import '../main.css';
 
 class App extends React.Component {
   constructor(props) {
