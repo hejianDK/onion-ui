@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   name: 'client',
@@ -9,7 +10,7 @@ module.exports = {
     inline: true,
     progress: true,
     contentBase: './app',
-    port: 9999
+    port: 8080
   },
   entry: {
     app: path.resolve(__dirname, 'app/main.js'),
@@ -48,7 +49,8 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin(
       'vendor', 'vendor.js'
-    )
+    ),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
   ]
 };
 
