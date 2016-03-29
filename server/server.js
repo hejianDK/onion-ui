@@ -1,11 +1,12 @@
-const express = require('express');
+var express = require('express');
+var SERVER_PORT = require('../const.json').SERVER_PORT;
+var useMiddlewares = require('./utils/useMiddlewares');
+var buildEndpoints = require('./utils/buildEndpoints');
 
-const SERVER_PORT = require('../const.json').SERVER_PORT;
-const app = express();
+var app = express();
 
-app.get('/api', (req, res)=>{
-  res.send('hello onion!');
-});
+app = useMiddlewares(app);
+app = buildEndpoints(app);
 
 app.listen(SERVER_PORT, () => {
   console.log(`listening port ${SERVER_PORT}`);
