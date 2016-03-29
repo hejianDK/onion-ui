@@ -4,7 +4,7 @@
 }
 
 .toaster {
-    position: fixed;
+    position: absolute;
     width: 300px;
     left: 40%;
     right: 40%;

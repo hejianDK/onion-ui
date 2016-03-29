@@ -1,16 +1,16 @@
 export class SyncObject {
   constructor(syncMode, data, error) {
     this.lastUpdated = Date.now();
-    this.syncMode = syncMode;
+    this.syncMode = this.checkSyncMode(syncMode);
     this.data = data;
     this.error = error;
   }
 
   checkSyncMode(syncMode) {
-    if(!(syncMode.toUpperCase() in SyncMode)) {
-      return SyncMode.NONE;
+    if(!(syncMode in SyncMode)) {
+      throw new Error('Invalid sync mode');
     }
-    return syncMode.toUpperCase();
+    return syncMode;
   }
 }
 

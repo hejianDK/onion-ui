@@ -1,33 +1,31 @@
 import React from 'react';
-import FormPanel from '../components/FormPanel';
 import {connect} from 'react-redux';
 import {addPublisher} from "../actions/publisherActions";
 
 class PublisherForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {pub: {}};
+    this.state = {user: {}};
     this.handleValueChange = this.handleValueChange.bind(this);
   }
 
   handleValueChange(e) {
     const id = e.target.id;
     const value = e.target.value;
-    let pub = this.state.pub;
+    let pub = this.state.user;
     pub[id] = value;
-    this.setState({pub});
+    this.setState({user});
   }
 
   handleSubmitClick() {
     const {dispatch, dismiss} = this.props;
-    dispatch(addPublisher(this.state.pub));
+    dispatch(addPublisher(this.state.user));
     dismiss();
   }
 
   render() {
-    const pub = this.state.pub;
+    const pub = this.state.user;
     return (
-      <FormPanel panelHeading={this.props.panelHeading} dismiss={this.props.dismiss} >
         <form>
           <div className='form-group'>
             <label htmlFor='displayName'>Display Name</label>
@@ -64,7 +62,6 @@ class PublisherForm extends React.Component {
             Submit
           </button>
         </form>
-      </FormPanel>
     );
   }
 }

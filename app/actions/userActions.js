@@ -1,42 +1,42 @@
 import {
   URL,
-  GET_PUBLISHERS_FAILURE,
-  GET_PUBLISHERS_REQUEST,
-  GET_PUBLISHERS_SUCCESS,
-  ADD_PUBLISHER_REQUEST,
-  ADD_PUBLISHER_SUCCESS,
-  ADD_PUBLISHER_FAILURE
+  GET_USERS_FAILURE,
+  GET_USERS_REQUEST,
+  GET_USERS_SUCCESS,
+  ADD_USER_REQUEST,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAILURE
 } from "../constants/Constants";
 
-export const getPublishersRequest = () => {
+export const getUsersRequest = () => {
   return {
-    type: GET_PUBLISHERS_REQUEST
+    type: GET_USERS_REQUEST
   };
 };
 
-export const getPublishersSucceeded = (data) => {
+export const getUsersSucceeded = (data) => {
   return {
-    type: GET_PUBLISHERS_SUCCESS,
+    type: GET_USERS_SUCCESS,
     data
   };
 };
 
-export const getPublishersFailed = (error) => {
+export const getUsersFailed = (error) => {
   return {
-    type: GET_PUBLISHERS_FAILURE,
+    type: GET_USERS_FAILURE,
     error
   };
 };
 
-export const getPublishers = () => {
+export const getUsers = () => {
   return dispatch => {
-    const requestAction = getPublishersRequest();
+    const requestAction = getUsersRequest();
     dispatch(requestAction);
-    return fetch(`${URL}/publishers/`)
+    return fetch(`${URL}/publishers/1/users`) // TODO: refactor this
       .then((res) => res.json())
       .then((json) => {
         if(!json.status) {
-          dispatch(getPublishersSucceeded(json))
+          dispatch(getUsersSucceeded(json))
         } else {
           let error = new Error(json.status);
           error.json = json;
@@ -46,43 +46,43 @@ export const getPublishers = () => {
       .catch((error) => error.json)
       .then((json) => {
         if(json) {
-          return {json, action: requestAction, method: getPublishers };
+          return {json, action: requestAction, method: getUsers() };
         }
       })
       .then((data) => {
         if(data) {
-          dispatch(getPublishersFailed(data))
+          dispatch(getUsersFailed(data))
         }
       });
   };
 };
 
-export const addPublisherRequest = (data) => {
+export const addUserRequest = (data) => {
   return {
-    type: ADD_PUBLISHER_REQUEST,
+    type: ADD_USER_REQUEST,
     data
   };
 };
 
-export const addPublisherSucceeded = (data) => {
+export const addUserSucceeded = (data) => {
   return {
-    type: ADD_PUBLISHER_SUCCESS,
+    type: ADD_USER_SUCCESS,
     data
   };
 };
 
-export const addPublisherFailed = (error) => {
+export const addUserFailed = (error) => {
   return {
-    type: ADD_PUBLISHER_FAILURE,
+    type: ADD_USER_FAILURE,
     error
   };
 };
 
-export const addPublisher = (data) => {
+export const addUser = (data) => {
   return dispatch => {
-    const requestAction = addPublisherRequest(data);
+    const requestAction = addUserRequest(data);
     dispatch(requestAction);
-    return fetch(`${URL}/publishers/`, {
+    return fetch(`${URL}/publishers/1/users`, { // TODO refactore needed
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -93,7 +93,7 @@ export const addPublisher = (data) => {
       .then((res) => res.json())
       .then((json) => {
         if(!json.status) {
-          dispatch(addPublisherSucceeded(json))
+          dispatch(addUserSucceeded(json))
         } else {
           let error = new Error(json.status);
           error.json = json;
@@ -103,12 +103,12 @@ export const addPublisher = (data) => {
       .catch((error) => error.json)
       .then((json) => {
         if(json) {
-          return {json, action: requestAction, method: addPublisher};
+          return {json, action: requestAction, method: addUser};
         }
       })
       .then((data) => {
         if(data) {
-          dispatch(addPublisherFailed(data))
+          dispatch(addUserFailed(data))
         }
       });
   };

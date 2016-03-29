@@ -22,7 +22,8 @@
     "isomorphic-fetch": "~2.2.1"
   },
   "devDependencies": {
-    "archiver": "~0.21.0",
+    "jszip": "~2.6.0",
+    "cheerio": "~0.20.0",
     "babel-core": "~6.2.0",
     "babel-loader": "~6.2.0",
     "babel-preset-es2015": "~6.2.0",

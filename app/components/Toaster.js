@@ -15,7 +15,7 @@ export default class Toaster extends React.Component {
     const {json} = this.props.error;
     return (
       <div className='alert alert-danger toaster' role='alert' >
-        <button type='button' className='close' onClick={() => {this.props.dismiss()}}>
+        <button type='button' className='close' onClick={() => {this.props.dismiss(json)}}>
           <span aria-hidden='true'>&times;</span>
         </button>
         <span>{json.message}</span>

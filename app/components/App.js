@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Toaster from './Toaster';
-import PublisherForm from './PublisherForm';
 import Nav from './Nav';
 
 class App extends React.Component {
@@ -10,11 +9,11 @@ class App extends React.Component {
     this.state = {dismiss: true};
   }
   componentWillReceiveProps(props) {
-    const {error} = props.publishers;
+    const {error} = props.publishers || props.users;
     this.setState({dismiss: error === undefined});
   }
 
-  dismissToaster() {
+  dismissToaster(error) {
     this.setState({dismiss: true});
   }
   render() {
