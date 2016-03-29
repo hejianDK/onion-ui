@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const SERVER_PORT = require('./const.json').SERVER_PORT;
+const DEV_SERVER_PORT = require('./const.json').DEV_SERVER_PORT;
 
 module.exports = {
   name: 'client',
@@ -10,10 +12,10 @@ module.exports = {
     inline: true,
     progress: true,
     contentBase: './app',
-    port: 8080,
+    port: DEV_SERVER_PORT,
     proxy: {
       '/api*': {
-        target: 'http://localhost:8081',
+        target: `http://localhost:${SERVER_PORT}`,
         secure: false
       }
     }
@@ -38,7 +40,10 @@ module.exports = {
       },
       {
         test: /\.js[x]?$/,
-        include: path.resolve(__dirname, 'app'),
+        include: [
+          path.resolve(__dirname, 'app'),
+          path.resolve(__dirname, 'server')
+        ],
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
@@ -53,7 +58,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin(
       'vendor', 'vendor.js'
     ),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
+    new OpenBrowserPlugin({ url: `http://localhost:${DEV_SERVER_PORT}` })
   ]
 };
 
