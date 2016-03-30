@@ -16,8 +16,8 @@ module.exports = class TodoService extends Service {
   
   addNewTodo(newTodo) {
     return this.db.one(
-      'insert into todo(item, done, create_date) values($1, $2, $3) returning *',
-      [newTodo.item, newTodo.done, newTodo.create_date]
+      'insert into todo(item) values($1) returning *',
+      [newTodo.item]
     )
   }
   
