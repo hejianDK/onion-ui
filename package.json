@@ -7,7 +7,7 @@
     "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "build": "webpack && node create-zip.js",
-    "start": "webpack-dev-server --devtool eval --colors"
+    "start": "webpack-dev-server --colors"
   },
   "dependencies": {
     "react": "~0.14.7",
