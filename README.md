@@ -11,8 +11,8 @@ The motivation of this project is the quote below which encourages me to keep wo
 > Biebiev is noob.
 
 Todos:
-- [ ] add express server
+- [x] add express server
 - [ ] make ui work for the new setup
 - [ ] add necessary test cases
 - [ ] add sass supports
-- [ ] add mongodb/postgress as database
+- [x] add mongodb/postgress as database
