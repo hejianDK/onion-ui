@@ -1,33 +1,21 @@
-import {USER_PROFILE} from '../constants/Constants';
-import {
-  GET_PUBLISHERS_FAILURE,
-  GET_PUBLISHERS_REQUEST,
-  GET_PUBLISHERS_SUCCESS,
-  ADD_PUBLISHER_REQUEST,
-  ADD_PUBLISHER_SUCCESS,
-  ADD_PUBLISHER_FAILURE
-} from '../constants/Constants';
-import publisherReducer from './publisherReducer';
-import {SyncObject, SyncMode} from "./SyncObject";
+import * as TODO from '../constants/TodoConstants';
+import todoReducer from './todoReducer';
+import { StateHolder, Status } from './StateHolder';
 
 const defaultState = {
-  publishers: new SyncObject(SyncMode.NONE, [])
+  todo: new StateHolder(Status.NONE, [])
 };
 
 export default function mainReducer(state = defaultState, action) {
-  switch(action.type) {
-    case USER_PROFILE:
+  switch (action.type) {
+    case TODO.GET_TODO_REQUEST:
+    case TODO.GET_TODO_SUCCESS:
+    case TODO.GET_TODO_FAILURE:
+    case TODO.ADD_TODO_REQUEST:
+    case TODO.ADD_TODO_SUCCESS:
+    case TODO.ADD_TODO_FAILURE:
       return Object.assign({}, state, {
-        username: 'Onion'
-      });
-    case GET_PUBLISHERS_REQUEST:
-    case GET_PUBLISHERS_SUCCESS:
-    case GET_PUBLISHERS_FAILURE:
-    case ADD_PUBLISHER_REQUEST:
-    case ADD_PUBLISHER_SUCCESS:
-    case ADD_PUBLISHER_FAILURE:
-      return Object.assign({}, state, {
-        publishers: publisherReducer(state.publishers, action)
+        todo: todoReducer(state.todo, action)
       });
     default:
       return state;

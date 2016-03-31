@@ -11,7 +11,6 @@ export default function configureStore(initialState) {
   );
 
   if (module.hot) {
-    // Enable Webpack hot module replacement for reducers (from redux async example)
     module.hot.accept('../reducers/mainReducer', () => {
       const nextRootReducer = require('../reducers/mainReducer').default;
       store.replaceReducer(nextRootReducer);
