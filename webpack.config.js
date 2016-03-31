@@ -6,7 +6,6 @@ const DEV_SERVER_PORT = require('./const.json').DEV_SERVER_PORT;
 
 module.exports = {
   name: 'client',
-  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -24,10 +23,11 @@ module.exports = {
       }
     }
   },
-  entry: [
-    'bootstrap-loader',
-    path.resolve(__dirname, 'app/main.js')
-  ],
+  entry: {
+    app: path.resolve(__dirname, 'app/main.js'),
+    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'redux-logger', 'redux-thunk',
+      'react-router', 'isomorphic-fetch', 'es6-promise', 'lodash', 'bootstrap-loader', 'jquery']
+  },
   output: {
     path: __dirname + '/build',
     publicPath: '/',
@@ -51,7 +51,7 @@ module.exports = {
         loader: 'babel-loader'
       },
       { test: /\.(png|jpg|gif)$/, loader: 'url-loader' },
-      { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
+      { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' },
       { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
       { test: /\.(ttf|eot)$/, loader: 'file' }
     ]
@@ -59,11 +59,9 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons',
+      name: 'vendor',
       filename: 'commons.js',
-      minChunks: 3,
-      chunks: ['react', 'react-dom', 'redux', 'react-redux', 'redux-logger', 'redux-thunk',
-        'react-router', 'isomorphic-fetch', 'es6-promise', 'lodash', 'jquery']
+      minChunks: Infinity
     }),
     new OpenBrowserPlugin({ url: `http://localhost:${DEV_SERVER_PORT}` }),
     new webpack.optimize.DedupePlugin()
