@@ -7,6 +7,10 @@ Run `npm run start` to start the webpack dev server and `npm run build` to build
 
 Run `npm run test` to run the test sets and `npm run test:watch` to watch the tests.
 
+Run `npm run lint` to check the JavaScript style using Airbnb rule.
+
+All JavaScript codes in app folder passed eslint check and all tests passed before commit.
+
 The motivation of this project is the quote below which encourages me to keep working hard:
 > Biebiev is noob.
 
