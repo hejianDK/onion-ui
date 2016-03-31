@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 var todoService = new TodoService();
 
-app.get('/api/todos', (req, res) => {
+app.get('/api/todo', (req, res) => {
   todoService.getTodos()
     .then((data) => {
       res.send(data);
@@ -22,7 +22,7 @@ app.get('/api/todos', (req, res) => {
     });
 });
 
-app.get('/api/todos/:id', (req, res) => {
+app.get('/api/todo/:id', (req, res) => {
   todoService.getTodoById(req.params.id)
     .then((data) => {
       res.send(data);
@@ -35,7 +35,7 @@ app.get('/api/todos/:id', (req, res) => {
     });
 });
 
-app.post('/api/todos/', (req, res) => {
+app.post('/api/todo/', (req, res) => {
   todoService.addNewTodo(req.body)
     .then((data) => {
       res.status(201).send(data);
@@ -48,7 +48,7 @@ app.post('/api/todos/', (req, res) => {
     });
 });
 
-app.put('/api/todos/:id', (req, res) => {
+app.put('/api/todo/:id', (req, res) => {
   const todo = req.body;
   if(req.params.id != todo.id) {
     res.status(500).send({
@@ -68,7 +68,7 @@ app.put('/api/todos/:id', (req, res) => {
     });
 });
 
-app.delete('/api/todos/:id', (req, res) => {
+app.delete('/api/todo/:id', (req, res) => {
   todoService.deleteTodo(req.params.id)
     .then((data) => {
       res.send(data);
