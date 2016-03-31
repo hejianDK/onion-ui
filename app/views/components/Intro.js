@@ -2,7 +2,7 @@ import React from 'react';
 
 function Intro(props) {
   return (
-    <div className="col-sm-3">
+    <div className="col-sm-2">
       <div className="page-header">
         <h4>Introduction</h4>
       </div>
