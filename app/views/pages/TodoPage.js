@@ -2,9 +2,11 @@ import React from 'react';
 import Intro from '../components/Intro';
 import { connect } from 'react-redux';
 import { getTodo } from '../../actions/todoActions';
+import TodoList from '../components/TodoList';
 
 const propTypes = {
-  dispatch: React.PropTypes.func.isRequired
+  dispatch: React.PropTypes.func.isRequired,
+  todo: React.PropTypes.object.isRequired
 };
 
 class TodoPage extends React.Component {
@@ -13,6 +15,7 @@ class TodoPage extends React.Component {
     dispatch(getTodo());
   }
   render() {
+    const { todo } = this.props;
     return (
       <div>
         <Intro>
@@ -21,26 +24,24 @@ class TodoPage extends React.Component {
             pg-promise as the database driver and postgres as the database.
           </p>
         </Intro>
-        <div className="col-sm-9">
-          <div className="page-header">
-            <h4>My Onion Todo App</h4>
-          </div>
-          <div className="row">
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Add new todo item" />
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="button">Add!</button>
-                </span>
+        <div className="col-sm-4 col-sm-offset-1">
+          <div className="container-fluid">
+            <div className="page-header">
+              <h4>My Onion Todo App</h4>
+            </div>
+            <div className="row">
+              <div className="input-group">
+                <input type="text" className="form-control" placeholder="Add new todo item" />
+                  <span className="input-group-btn">
+                    <button className="btn btn-default" type="button">Add!</button>
+                  </span>
+              </div>
+            </div>
+            <div className="row">
+              <TodoList todo={ todo } />
             </div>
           </div>
-          <div className="row">
-            <ul className="list-group">
-              <li className="list-group-item" contentEditable value="item1" />
-              <li className="list-group-item" contentEditable value="item2" />
-              <li className="list-group-item" contentEditable value="item3" />
-              <li className="list-group-item" contentEditable value="item4" />
-            </ul>
-          </div>
+
         </div>
       </div>
     );

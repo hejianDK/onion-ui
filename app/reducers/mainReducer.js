@@ -14,6 +14,12 @@ export default function mainReducer(state = defaultState, action) {
     case TODO.ADD_TODO_REQUEST:
     case TODO.ADD_TODO_SUCCESS:
     case TODO.ADD_TODO_FAILURE:
+    case TODO.UPDATE_TODO_REQUEST:
+    case TODO.UPDATE_TODO_SUCCESS:
+    case TODO.UPDATE_TODO_FAILURE:
+    case TODO.DELETE_TODO_REQUEST:
+    case TODO.DELETE_TODO_SUCCESS:
+    case TODO.DELETE_TODO_FAILURE:
       return Object.assign({}, state, {
         todo: todoReducer(state.todo, action)
       });
