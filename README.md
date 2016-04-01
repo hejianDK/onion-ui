@@ -16,7 +16,7 @@ The motivation of this project is the quote below which encourages me to keep wo
 
 Todos:
 - [x] add express server
-- [ ] make ui work for the new setup
+- [x] make ui work for the new setup
 - [ ] add necessary test cases
 - [ ] add sass supports
 - [x] add mongodb/postgress as database
