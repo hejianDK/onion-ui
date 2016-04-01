@@ -1,7 +1,7 @@
 import React from 'react';
 import Intro from '../components/Intro';
 import { connect } from 'react-redux';
-import { getTodo } from '../../actions/todoActions';
+import { getTodo, addTodo } from '../../actions/todoActions';
 import TodoList from '../components/TodoList';
 
 const propTypes = {
@@ -10,10 +10,25 @@ const propTypes = {
 };
 
 class TodoPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { newItem: '' };
+    this.handleAddTodo = this.handleAddTodo.bind(this);
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getTodo());
   }
+  handleAddTodo(e) {
+    if (e.type === 'click' || e.key === 'Enter') {
+      const newItem = this.state.newItem;
+      if (newItem.length > 0) {
+        this.props.dispatch(addTodo({ item: newItem }));
+        this.setState({ newItem: '' });
+      }
+    }
+  }
+
   render() {
     const { todo } = this.props;
     return (
@@ -31,10 +46,16 @@ class TodoPage extends React.Component {
             </div>
             <div className="row">
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Add new todo item" />
-                  <span className="input-group-btn">
-                    <button className="btn btn-default" type="button">Add!</button>
-                  </span>
+                <input type="text" className="form-control"
+                  placeholder="Add new todo item" value={ this.state.newItem }
+                  onChange={ (e) => this.setState({ newItem: e.target.value })}
+                  onKeyPress={ this.handleAddTodo }
+                />
+                <span className="input-group-btn">
+                  <button className="btn btn-default"type="button" onClick={ this.handleAddTodo }>
+                    Add!
+                  </button>
+                </span>
               </div>
             </div>
             <div className="row">

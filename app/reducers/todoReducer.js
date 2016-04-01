@@ -10,6 +10,12 @@ export default function todoReducer(state, action) {
       return Object.assign({}, state, new StateHolder(Status.NONE, action.data));
     case TODO.GET_TODO_FAILURE:
       return Object.assign({}, state, new StateHolder(Status.NONE, state.data, action.error));
+    case TODO.ADD_TODO_REQUEST:
+      return Object.assign({}, state, new StateHolder(Status.WRITING, state.data));
+    case TODO.ADD_TODO_SUCCESS:
+      return Object.assign({}, state, new StateHolder(Status.NONE, [...state.data, action.data]));
+    case TODO.ADD_TODO_FAILURE:
+      return Object.assign({}, state, new StateHolder(Status.NONE, state.data, action.error));
     case TODO.UPDATE_TODO_REQUEST:
       return Object.assign({}, state, new StateHolder(Status.WRITING, state.data));
     case TODO.UPDATE_TODO_SUCCESS: {
